@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  plausibility_monitor:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - ROS_DOMAIN_ID=0
+      - TF_USE_LEGACY_KERAS=1
+    command: python3 /app/LSTM/plausibility_inference_node.py
+    network_mode: "host"
+
+  data_collector:
+    build: .
+    volumes:
+      - .:/app
+    command: python3 /app/data/data_collector.py
+    network_mode: "host"
